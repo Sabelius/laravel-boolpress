@@ -20,4 +20,11 @@
         </div>
     </div>
 </div>
+<div class="container travel-main-page pt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <a href="{{route("admin.posts.index")}}" class="btn btn-success">Vai alla pagina dei post</a>
+        </div>
+    </div>
+</div>
 @endsection
