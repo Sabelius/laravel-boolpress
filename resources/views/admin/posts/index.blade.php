@@ -17,5 +17,8 @@
             </div>
         @endforeach
     </div>
+    <div class="travel-main-page pt-2 d-flex justify-content-center">
+        <a href="{{route("admin.posts.create")}}" class="btn btn-success">Crea nuovo post</a>
+    </div>
 </div>
 @endsection
