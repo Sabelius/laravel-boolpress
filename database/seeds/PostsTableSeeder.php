@@ -19,7 +19,7 @@ class PostsTableSeeder extends Seeder
             $newPost->post_creation_date = $faker->date();
             $newPost->post_name = $faker->words(3, true);
             $newPost->post_description = $faker->words(12, true);
-            $newPost->content = $faker->text();
+            $newPost->content = $faker->text(1000);
             $newPost->save();
         }
     }
