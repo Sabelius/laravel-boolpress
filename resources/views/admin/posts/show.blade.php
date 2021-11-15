@@ -16,9 +16,19 @@
                 <p class="card-text">{{$post->content}}</p>
             </div>
         </div>
-        <div class="travel-main-page pt-2 d-flex justify-content-center">
-            <a href="{{route("admin.posts.index")}}" class="btn btn-success">Torna alla pagina dei viaggi</a>
-        </div>
+    </div>
+    <div class="travel-main-page pt-2 d-flex justify-content-center">
+        <a href="{{route("admin.posts.index")}}" class="btn btn-success">Torna alla pagina dei viaggi</a>
+    </div>
+    <div class="travel-main-page pt-2 d-flex justify-content-center">
+        <a href="{{route("admin.posts.edit", $post)}}" class="btn btn-success">Modifica post</a>
+    </div>
+    <div class="container pt-2 text-center">
+        <form id="form-delete" action="{{route('admin.posts.destroy', $post)}}" method="POST">
+            @method("delete")
+            @csrf
+            <button type="submit" class="btn btn-danger">Cancella post</button>
+        </form>
     </div>
 </div>
 @endsection
