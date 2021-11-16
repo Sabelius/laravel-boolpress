@@ -6,6 +6,9 @@
     <div class="row justify-content-center">
         <h1 class="pt-2 text-uppercase">Posts:</h1>
     </div>
+    <div class="row travel-main-page p-3 justify-content-center">
+        <a href="{{route("admin.posts.create")}}">Crea nuovo post</a>
+    </div>
     <div class="row justify-content-center">
         @foreach ($posts as $post)
             <div class="text-center card m-2" style="width: 18rem;">
@@ -16,9 +19,6 @@
                 </div>
             </div>
         @endforeach
-    </div>
-    <div class="travel-main-page pt-2 d-flex justify-content-center">
-        <a href="{{route("admin.posts.create")}}" class="btn btn-success">Crea nuovo post</a>
     </div>
 </div>
 @endsection

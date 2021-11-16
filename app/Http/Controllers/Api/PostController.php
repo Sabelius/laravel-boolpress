@@ -50,7 +50,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        if ($post) return response()->json($post);
+        else return response("", 404);
     }
 
     /**
@@ -84,6 +86,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        return response ("", 204);
     }
 }
