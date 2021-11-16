@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -35,7 +36,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("admin.posts.create");
+        $categories = Category::all();
+        return view("admin.posts.create", compact("categories"));
     }
 
     /**
@@ -47,8 +49,16 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $category = Category::find($data["category_id"]);
         $newPost = Post::create($data);
-        $newPost->save();
+        // $category->posts()->save($newPost);
+        if($category!== null){
+            $category->posts()->save($newPost);
+            $newPost->refresh();
+        } else {
+            $newPost->save();
+        }
+        // $newPost->save();
         return redirect()->route('admin.posts.show', $newPost);
     }
 
@@ -71,7 +81,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view("admin.posts.edit", compact("post"));
+        $categories = Category::all();
+        return view("admin.posts.edit", compact("post", "categories"));
     }
 
     /**
@@ -84,7 +95,14 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
+        $category = Category::find($data["category_id"]);
         $post->update($data);
+        if($category!== null){
+            $category->posts()->save($post);
+        } else {
+            $post->category()->dissociate();
+            $post->save();
+        }
         return redirect()->route('admin.posts.show', $post);
     }
 
