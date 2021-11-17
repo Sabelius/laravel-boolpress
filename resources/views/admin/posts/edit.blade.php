@@ -8,19 +8,19 @@
     <form action="{{route('admin.posts.update', $post)}}" method="POST">
         @method("PUT")
         @csrf
-        <div class="pt-2">
+        <div class="form-group">
             <label for="name" class="form-label">Autore:</label>
-            <input type="text" placeholder="nome autore" name="author" value="{{$post->author}}">
+            <input class="form-control" type="text" placeholder="nome autore" name="author" value="{{$post->author}}">
         </div>
-        <div class="pt-2">
+        <div class="form-group">
             <label for="name" class="form-label">Data creazione:</label>
-            <input type="text" placeholder="data" name="post_creation_date" value="{{$post->published_at}}"> 
+            <input class="form-control" type="text" placeholder="data" name="post_creation_date" value="{{$post->published_at}}"> 
         </div>
-        <div class="pt-2">
+        <div class="form-group">
             <label for="name" class="form-label">Titolo Post:</label>
-            <input type="text" placeholder="titolo" name="post_name" value="{{$post->post_name}}"> 
+            <input class="form-control" type="text" placeholder="titolo" name="post_name" value="{{$post->post_name}}"> 
         </div>
-        <div class="pt-2">
+        <div class="form-group">
             <label for="category_id" class="form-label">Categoria:</label>
             <select name="category_id" id="category_id">
                 <option>Senza categoria</option>
@@ -29,13 +29,13 @@
                 @endforeach
             </select>
         </div>
-        <div class="pt-2">
+        <div class="form-group">
             <label for="name" class="form-label">Descrizione:</label>
-            <input type="text" placeholder="descrizione" name="post_description" value="{{$post->post_description}}"> 
+            <input class="form-control" type="text" placeholder="descrizione" name="post_description" value="{{$post->post_description}}"> 
         </div>
-        <div class="pt-2 d-flex justify-content-center">
+        <div class="form-group">
             <label for="name" class="form-label mx-1">Testo:</label>
-            <textarea type="text" placeholder="testo" name="content" rows="10">{{$post->content}}</textarea>
+            <textarea class="form-control" type="text" placeholder="testo" name="content" rows="10">{{$post->content}}</textarea>
         </div>
         <div class="pt-2">
             <button type="submit" class="btn btn-success">Modifica post</button>
