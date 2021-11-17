@@ -49,6 +49,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'published_at' =>'required|date|',
+            'post_name' => 'required|string|unique:posts|max:100',
+            'post_description' => 'required|string|unique:posts|max:255',
+            'content' => 'required|string|min:200',
+            'category_id' => "nullable"
+        ],
+        [
+            "required" => 'Devi compilare correttamente :attribute',
+            "published_at.required" => 'Inserisci data',
+            "post_name.required" => 'Inserisci titolo',
+            "post_name.max" => 'Il titolo deve essere lungo massimo 100 caratteri',
+            "post_description.required" => 'Inserisci descrizione',
+            "post_description.max" => 'La descrizione deve essere lunga massimo 255 caratteri',
+            "content.required"=> "Inserisci corpo post",
+            'content.min' => 'Il post deve essere lungo almeno 200 caratteri',
+        ]);
+
+
         $data = $request->all();
         $data["user_id"] = Auth::user()->id;
         $category = Category::find($data["category_id"]);

@@ -4,6 +4,15 @@
 <div class="post container text-center pt-2">
     <h1>Creazione nuovo post:</h1>
 </div>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="post container text-center pt-5">
     <form action="{{route('admin.posts.store')}}" method="POST">
         @csrf
