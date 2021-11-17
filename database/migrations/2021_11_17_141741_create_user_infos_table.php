@@ -15,16 +15,18 @@ class CreateUserInfosTable extends Migration
     {
         Schema::create('user_infos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("user_id")->nullable();
             $table->string("address")->nullable();
             $table->string("country")->nullable();
             $table->string("phone")->nullable();
             $table->timestamps();
+        });
 
+        Schema::table("user_infos", function(Blueprint $table){
             $table->foreign("user_id")
-                ->references("id")
-                ->on("users")
-                ->onDelete("set null");
+            ->references("id")
+            ->on("users")
+            ->onDelete("set null");
         });
     }
 
@@ -35,12 +37,12 @@ class CreateUserInfosTable extends Migration
      */
     public function down()
     {
-        Schema::table("users", function(Blueprint $table){
-            $table->dropForeign("users_user_id_foreign");
+        Schema::table("user_infos", function(Blueprint $table){
+            $table->dropForeign("user_infos_user_id_foreign");
             $table->dropColumn("user_id");
 
         });
-        
+
         Schema::dropIfExists('user_infos');
     }
 }

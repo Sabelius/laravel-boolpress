@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
@@ -49,6 +50,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $data["user_id"] = Auth::user()->id;
         $category = Category::find($data["category_id"]);
         $newPost = Post::create($data);
         // $category->posts()->save($newPost);
@@ -95,6 +97,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
+        $data["user_id"] = Auth::user()->id;
         $category = Category::find($data["category_id"]);
         $post->update($data);
         if($category!== null){

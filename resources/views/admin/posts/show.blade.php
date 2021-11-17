@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
         <div class="text-center card m-2 col-12" style="width: 18rem;">
             <div class="card-body">
-                <h6 class="card-title"><em>{{$post->author}}</em></h6>
+                <h6 class="card-title"><em>{{$post->user->name}}</em></h6>
                 <h6 class="card-title">Scritto il : {{$post->published_at}}</h6>
                 <h6 class="card-title">@if ($post->category) {{$post->category->name}} @else Nessuna categoria @endif</h6>
                 <h5 class="card-title text-uppercase">{{$post->post_name}}</h5>

@@ -8,10 +8,6 @@
     <form action="{{route('admin.posts.store')}}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="name" class="form-label">Autore:</label>
-            <input class="form-control" type="text" placeholder="nome autore" name="author">
-        </div>
-        <div class="form-group">
             <label for="name" class="form-label">Data creazione:</label>
             <input class="form-control" type="text" placeholder="data" name="published_at"> 
         </div>
