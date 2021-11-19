@@ -4,13 +4,22 @@
 <div class="post container text-center pt-2">
     <h1>Modifica post:</h1>
 </div>
+@if ($errors->any())
+    <div class="alert alert-danger container">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="post container text-center pt-5">
     <form action="{{route('admin.posts.update', $post)}}" method="POST">
         @method("PUT")
         @csrf
         <div class="form-group">
-            <label for="name" class="form-label">Aggiornamento data:</label>
-            <input class="form-control" type="text" placeholder="data" name="post_creation_date" value="{{$post->published_at}}"> 
+            <label for="date" class="form-label">Aggiornamento data:</label>
+            <input class="form-control" type="text" placeholder="data" name="published_at" value="{{$post->published_at}}"> 
         </div>
         <div class="form-group">
             <label for="name" class="form-label">Titolo Post:</label>
@@ -24,6 +33,16 @@
                     <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="form-group">
+            <h5 for="tag" class="h5">Tag:</h5>
+            <div class="form-check form-check-inline">
+                @foreach ($tags as $tag)
+                <input class="form-check-input" type="checkbox" id="tag-{{$tag->id}}" value="{{$tag->id}}" name="tags[]"
+                @if(in_array($tag->id, old("tags", $tagIds ? $tagIds : []))) checked @endif)>
+                <label class="form-check-label mx-3" for="tag-{{$tag->id}}">{{$tag->name}}</label>
+                @endforeach
+            </div>
         </div>
         <div class="form-group">
             <label for="name" class="form-label">Descrizione:</label>

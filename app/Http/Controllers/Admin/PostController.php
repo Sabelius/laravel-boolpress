@@ -52,11 +52,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'published_at' =>'required|date|',
+            'published_at' =>'required|date',
             'post_name' => 'required|string|unique:posts|max:100',
             'post_description' => 'required|string|unique:posts|max:255',
             'content' => 'required|string|min:200',
-            'category_id' => "nullable"
+            'category_id' => "nullable",
+            "tags" => "nullable",
         ],
         [
             "required" => 'Devi compilare correttamente :attribute',
@@ -82,7 +83,7 @@ class PostController extends Controller
             $newPost->save();
         }
 
-        if(array_key_exists("tags", $data)) $newPost->tags()->attach($data["tags"]);
+        if(array_key_exists("tags", $data)) $newPost->tags()->sync($data["tags"]);
         // $newPost->save();
         return redirect()->route('admin.posts.show', $newPost);
     }
@@ -107,7 +108,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view("admin.posts.edit", compact("post", "categories"));
+        $tags = Tag::all();
+        $tagIds = $post->tags->pluck("id")->toArray();
+        return view("admin.posts.edit", compact("post", "categories", "tags", "tagIds"));
     }
 
     /**
@@ -119,6 +122,25 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'published_at' =>'required|date',
+            'post_name' => 'required|string|unique:posts|max:100',
+            'post_description' => 'required|string|unique:posts|max:255',
+            'content' => 'required|string|min:200',
+            'category_id' => "nullable",
+            "tags" => "nullable",
+        ],
+        [
+            "required" => 'Devi compilare correttamente :attribute',
+            "published_at.required" => 'Aggiorna data',
+            "post_name.required" => 'Aggiorna titolo',
+            "post_name.max" => 'Il titolo deve essere lungo massimo 100 caratteri',
+            "post_description.required" => 'Aggiorna descrizione',
+            "post_description.max" => 'La descrizione deve essere lunga massimo 255 caratteri',
+            "content.required"=> "Aggiorna corpo post",
+            'content.min' => 'Il post deve essere lungo almeno 200 caratteri',
+        ]);
+
         $data = $request->all();
         $data["user_id"] = Auth::user()->id;
         $category = Category::find($data["category_id"]);
@@ -129,6 +151,8 @@ class PostController extends Controller
             $post->category()->dissociate();
             $post->save();
         }
+        if(array_key_exists('tags', $data)) $post->tags()->sync($data['tags']);
+
         return redirect()->route('admin.posts.show', $post);
     }
 
@@ -140,6 +164,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->tags) $post->tags()->detach();
+
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
