@@ -9,7 +9,7 @@
         @method("PUT")
         @csrf
         <div class="form-group">
-            <label for="name" class="form-label">Data creazione:</label>
+            <label for="name" class="form-label">Aggiornamento data:</label>
             <input class="form-control" type="text" placeholder="data" name="post_creation_date" value="{{$post->published_at}}"> 
         </div>
         <div class="form-group">
