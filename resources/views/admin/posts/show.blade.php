@@ -12,7 +12,13 @@
                 <h6 class="card-title"><em>{{$post->user->name}}</em></h6>
                 <h6 class="card-title">Scritto il : {{$post->published_at}}</h6>
                 <h6 class="card-title">@if ($post->category) {{$post->category->name}} @else Nessuna categoria @endif</h6>
-                <h5 class="card-title text-uppercase">{{$post->post_name}}</h5>
+                {{-- <h6 class="card-title">{{$post->tags()->name}}</h6> --}}
+                @forelse ($post->tags as $tag)
+                  <h6 class="card-title">{{$tag->name}}</h6>
+                  @empty
+                      <h6>Il post non ha tag.</h6>
+                  @endforelse
+                <h5 class="card-title text-uppercase pt-2">{{$post->post_name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{$post->post_description}}</h6>
                 <p class="card-text">{{$post->content}}</p>
             </div>
