@@ -15,9 +15,14 @@
                 {{-- <h6 class="card-title">{{$post->tags()->name}}</h6> --}}
                 @forelse ($post->tags as $tag)
                   <h6 class="card-title">{{$tag->name}}</h6>
-                  @empty
-                      <h6>Il post non ha tag.</h6>
-                  @endforelse
+                @empty
+                    <h6>Il post non ha tag.</h6>
+                @endforelse
+                @forelse ($post->user->roles as $role)
+                    <h6>{{$role->name}}</h6>
+                @empty
+                    Nessun ruolo assegnato
+                @endforelse
                 <h5 class="card-title text-uppercase pt-2">{{$post->post_name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{$post->post_description}}</h6>
                 <p class="card-text">{{$post->content}}</p>
@@ -25,7 +30,7 @@
         </div>
     </div>
     <div class="travel-main-page pt-2 d-flex justify-content-center">
-        <a href="{{route("admin.posts.index")}}" class="btn btn-success">Torna alla pagina dei viaggi</a>
+        <a href="{{route("admin.posts.index")}}" class="btn btn-success">Torna alla pagina dei post</a>
     </div>
     <div class="travel-main-page pt-2 d-flex justify-content-center">
         <a href="{{route("admin.posts.edit", $post)}}" class="btn btn-success">Modifica post</a>

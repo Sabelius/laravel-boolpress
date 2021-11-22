@@ -21,6 +21,11 @@
                   @empty
                     <h6 class="pb-1">Il post non ha tag</h6>
                   @endforelse
+                  @forelse ($post->user->roles as $role)
+                    <h6>{{$role->name}}</h6>
+                  @empty
+                    Nessun ruolo assegnato
+                  @endforelse
                   <h6 class="card-subtitle mb-2 text-muted">{{$post->post_description}}</h6>
                 </div>
             </div>

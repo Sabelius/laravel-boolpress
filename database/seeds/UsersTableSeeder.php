@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
             $newUser = new User();
             $newUser->name = $faker->userName();
             $newUser->email = $faker->safeEmail();
-            $newUser->password = bcrypt($faker->password(8,12));
+            $newUser->password = bcrypt("12345678");
             $newUser->save();
         }
     }
