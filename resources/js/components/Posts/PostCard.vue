@@ -7,7 +7,7 @@
       </h6>
       <p class="card-subtitle mb-2 text-muted pt-3">{{ post.content }}</p>
       <h6 class="card-subtitle mb-2 text-muted pt-3">
-        Scritto il {{ post.published_at }}
+        Scritto da {{post.user.name}} il {{ post.published_at }}
       </h6>
     </div>
   </div>

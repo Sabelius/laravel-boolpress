@@ -2375,6 +2375,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Posts",
@@ -2383,27 +2395,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      baseUri: "http://127.0.0.1:8000",
       posts: [],
-      isLoading: false
+      isLoading: false,
+      currentPage: 1,
+      lastPage: null
     };
   },
   methods: {
-    getPostList: function getPostList() {
+    getPostList: function getPostList(page) {
       var _this = this;
 
       this.isLoading = true;
-      axios.get("http://127.0.0.1:8000/api/posts/").then(function (res) {
-        _this.posts = res.data.posts;
+      axios.get("".concat(this.baseUri, "/api/posts/?page=").concat(page)).then(function (res) {
+        _this.posts = res.data.posts.data;
         console.dir(_this.posts);
+        _this.isLoading = false;
+        _this.currentPage = res.data.posts.current_page;
+        _this.lastPage = res.data.posts.last_page;
+        console.log(_this.currentPage, _this.lastPage);
       })["catch"](function (err) {
         console.error(err);
-      }).then(function () {
-        _this.isLoading = false;
       });
     }
   },
   created: function created() {
-    this.getPostList();
+    this.getPostList(25);
   }
 });
 
@@ -2969,7 +2986,11 @@ var render = function () {
       _vm._v(" "),
       _c("h6", { staticClass: "card-subtitle mb-2 text-muted pt-3" }, [
         _vm._v(
-          "\n      Scritto il " + _vm._s(_vm.post.published_at) + "\n    "
+          "\n      Scritto da " +
+            _vm._s(_vm.post.user.name) +
+            " il " +
+            _vm._s(_vm.post.published_at) +
+            "\n    "
         ),
       ]),
     ]),
@@ -3011,6 +3032,65 @@ var render = function () {
         : _vm._l(_vm.posts, function (post) {
             return _c("PostCard", { key: post.id, attrs: { post: post } })
           }),
+      _vm._v(" "),
+      _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+        _c(
+          "ul",
+          { staticClass: "pagination pt-5 d-flex justify-content-center pb-3" },
+          [
+            _vm.currentPage > 1
+              ? _c("li", { staticClass: "page-item" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "page-link",
+                      on: {
+                        click: function ($event) {
+                          return _vm.getPostList(_vm.currentPage - 1)
+                        },
+                      },
+                    },
+                    [_vm._v("Previous")]
+                  ),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._l(_vm.lastPage, function (n) {
+              return _c(
+                "li",
+                {
+                  key: n,
+                  staticClass: "page-item",
+                  on: {
+                    click: function ($event) {
+                      return _vm.getPostList(n)
+                    },
+                  },
+                },
+                [_c("a", { staticClass: "page-link" }, [_vm._v(_vm._s(n))])]
+              )
+            }),
+            _vm._v(" "),
+            _vm.currentPage < _vm.lastPage
+              ? _c("li", { staticClass: "page-item" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "page-link",
+                      on: {
+                        click: function ($event) {
+                          return _vm.getPostList(_vm.currentPage + 1)
+                        },
+                      },
+                    },
+                    [_vm._v("Next")]
+                  ),
+                ])
+              : _vm._e(),
+          ],
+          2
+        ),
+      ]),
     ],
     2
   )
@@ -3022,7 +3102,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "spinner-border text-info ", attrs: { role: "status" } },
+      { staticClass: "spinner-border text-info", attrs: { role: "status" } },
       [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
     )
   },

@@ -11,15 +11,15 @@
             <div class="card-body">
                 <h6 class="card-title"><em>{{$post->user->name}}</em></h6>
                 @forelse ($post->user->roles as $role)
-                    <h6>{{$role->name}}</h6>
+                    <h6 class="text-info">{{$role->name}}</h6>
                 @empty
                     Nessun ruolo assegnato
                 @endforelse
                 <h6 class="card-title">Scritto il : {{$post->published_at}}</h6>
-                <h6 class="card-title">@if ($post->category) {{$post->category->name}} @else Nessuna categoria @endif</h6>
+                <h6 class="card-title text-success">@if ($post->category) {{$post->category->name}} @else Nessuna categoria @endif</h6>
                 {{-- <h6 class="card-title">{{$post->tags()->name}}</h6> --}}
                 @forelse ($post->tags as $tag)
-                  <h6 class="card-title">{{$tag->name}}</h6>
+                  <h6 class="card-title text-danger">{{$tag->name}}</h6>
                 @empty
                     <h6>Il post non ha tag.</h6>
                 @endforelse
