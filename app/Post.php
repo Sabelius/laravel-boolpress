@@ -8,6 +8,13 @@ class Post extends Model
 {
     protected $fillable = ["user_id", "published_at", "post_name", "post_description", "content", "image"];
 
+    public function getImage(){
+        if ( str_starts_with($this->image, "public")){
+            return asset('storage/') . '/';
+        }
+        return "";
+    }
+
     public function category(){
         return $this->belongsTo("App\Category");
     }

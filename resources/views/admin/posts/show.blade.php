@@ -24,7 +24,7 @@
                     <h6>Il post non ha tag.</h6>
                 @endforelse
                 <h5 class="card-title text-uppercase pt-2">{{$post->post_name}}</h5>
-                <img class="img-fluid pb-2" src="{{ $post->image}}" alt="Post image">
+                <img class="img-fluid pb-2" src="{{ $post->getImage() . $post->image}}" alt="Post image">
                 <h6 class="card-subtitle mb-2 text-muted">{{$post->post_description}}</h6>
                 <p class="card-text">{{$post->content}}</p>
             </div>

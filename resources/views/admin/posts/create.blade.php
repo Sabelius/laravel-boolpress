@@ -14,7 +14,7 @@
     </div>
 @endif
 <div class="post container text-center pt-5">
-    <form action="{{route('admin.posts.store')}}" method="POST">
+    <form action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <h5 for="date" class="form-h5">Data creazione:</h5>
@@ -44,7 +44,7 @@
         </div>
         <div class="form-group">
             <h5 for="image">Immagine:</h5>
-            <input class="form-control" type="text" id="image" name="image" placeholder="Inserisci immagine del post" value="{{$post->image}}">
+            <input class="form-control" type="file" id="image" name="image" value="{{$post->image}}">
         </div>
         <div class="form-group">
             <h5 for="name" class="form-h5">Descrizione:</h5>

@@ -76,6 +76,7 @@ class PostController extends Controller
 
         $data = $request->all();
         $data["user_id"] = Auth::user()->id;
+        $data['image'] = Storage::put('public', $data['image']);
         $category = Category::find($data["category_id"]);
         $newPost = Post::create($data);
         // $category->posts()->save($newPost);
@@ -147,6 +148,7 @@ class PostController extends Controller
 
         $data = $request->all();
         $data["user_id"] = Auth::user()->id;
+        $data['image'] = Storage::put('public', $data['image']);
         $category = Category::find($data["category_id"]);
         $post->update($data);
         if($category!== null){
