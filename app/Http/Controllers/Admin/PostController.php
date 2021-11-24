@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Category;
 use App\Tag;
@@ -38,9 +39,10 @@ class PostController extends Controller
      */
     public function create()
     {
+        $post = new Post();
         $categories = Category::all();
         $tags = Tag::all();
-        return view("admin.posts.create", compact("categories", "tags"));
+        return view("admin.posts.create", compact("post", "categories", "tags"));
     }
 
     /**
@@ -57,6 +59,7 @@ class PostController extends Controller
             'post_description' => 'required|string|unique:posts|max:255',
             'content' => 'required|string|min:200',
             'category_id' => "nullable",
+            'image' => "nullable",
             "tags" => "nullable",
         ],
         [
@@ -128,6 +131,7 @@ class PostController extends Controller
             'post_description' => 'required|string|unique:posts|max:255',
             'content' => 'required|string|min:200',
             'category_id' => "nullable",
+            'image' => "nullable",
             "tags" => "nullable",
         ],
         [

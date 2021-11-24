@@ -45,6 +45,10 @@
             </div>
         </div>
         <div class="form-group">
+            <h5 for="image">Immagine:</h5>
+            <input class="form-control" type="text" placeholder="image" id="image" name="image" value="{{$post->image}}">
+        </div>
+        <div class="form-group">
             <label for="name" class="form-label">Descrizione:</label>
             <input class="form-control" type="text" placeholder="descrizione" name="post_description" value="{{$post->post_description}}"> 
         </div>

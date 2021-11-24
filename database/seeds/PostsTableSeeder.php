@@ -27,6 +27,7 @@ class PostsTableSeeder extends Seeder
             $newPost->post_name = $faker->words(3, true);
             $newPost->post_description = $faker->words(12, true);
             $newPost->content = $faker->text(1000);
+            $newPost->image = $faker->imageUrl(1000, 400, $newPost->title , true);
 
             $newPost->category_id = Arr::random($category_ids);
 
