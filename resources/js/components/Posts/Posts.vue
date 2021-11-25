@@ -1,6 +1,7 @@
 <template>
   <section>
     <h2>Lista Post:</h2>
+    <a href="contatti">Inviaci una mail</a>
 
     <div class="loader d-flex justify-content-center pt-5" v-if="isLoading">
       <div class="spinner-border text-info" role="status">

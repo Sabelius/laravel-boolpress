@@ -13,9 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('guests.home');
-});
+// Route::get('/', function () {
+//     return view('guests.home');
+// });
+
+Route::get('/home', 'HomeController@index')->name('guests.home');
+Route::get('/contatti', 'HomeController@getContactForm')->name('guests.contact');
+Route::post('/contatti', 'HomeController@contactFormHandler')->name('guests.sender');
+Route::get('/thanks', 'HomeController@contactFormEnder')->name('guests.thanks');
 
 Auth::routes();
 

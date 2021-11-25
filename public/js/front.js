@@ -2388,6 +2388,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Posts",
@@ -3023,6 +3024,8 @@ var render = function () {
     "section",
     [
       _c("h2", [_vm._v("Lista Post:")]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "contatti" } }, [_vm._v("Inviaci una mail")]),
       _vm._v(" "),
       _vm.isLoading
         ? _c(
