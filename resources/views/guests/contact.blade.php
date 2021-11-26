@@ -30,8 +30,10 @@
                         <h5 for="message" class="form-h5">Messaggio:</h5>
                         <textarea class="form-control" type="text" placeholder="Inserisci messaggio" name="message"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-success">Invia</button>
-                    <button type="reset" class="btn btn-danger">Reset</button>
+                    <div class="d-flex justify-content-around">
+                        <button type="submit" class="btn btn-success">Invia</button>
+                        <button type="reset" class="btn btn-danger">Reset</button>
+                    </div>
                 </form>
             </div>
         </div>
